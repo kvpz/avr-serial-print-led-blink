@@ -13,7 +13,7 @@ make PRG=flickprint-minimal-avr
 
 If there is an issue building, look at the makefile and verify that the AVR C Library is located at the path assigned to the AVR variable.
 
-###### How to burn firmware
+###### How to burn firmware onto an Arduino equipped with a bootloader
 ``` 
 make PRG=flickprint-avr upload 
 ```
