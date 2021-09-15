@@ -12,6 +12,5 @@
 
 device_file=/dev/ttyACM0
 baud_rate=115200 # does not work even though makefile
-
 stty -F $device_file $baud_rate raw -clocal -echo
 cat $device_file

@@ -3,7 +3,7 @@
 #endif
 
 #ifndef BAUD
-#define BAUD 9600
+#define BAUD 115200
 #endif
 
 #define USART_BAUD_RATE_REG_HIGH (*(volatile uint8_t*) 0xC5)
@@ -20,13 +20,12 @@ void uart_init() {
   
   //volatile uint8_t * regC4 = (volatile uint8_t *) 0xC4;
   USART_BAUD_RATE_REG_LOW = ((((F_CPU) + 8UL * (BAUD)) / (16UL * (BAUD)) -1UL) & 0xff);
-  
-  // Configure data frame size to 8-bits.
-  
-  USART_CTRL_STATUS_REG_0C = ((1 << 1) | (1 << 2));
-  
+
   // Configure to enable transmitter.
   USART_CTRL_STATUS_REG_0B = (1 << 3);
+  
+  // Configure data frame size to 8-bits.  
+  USART_CTRL_STATUS_REG_0C = ((1 << 1) | (1 << 2));
 }
 
 void uart_putchar(char c) {

@@ -1,9 +1,10 @@
+// Define F_CPU required by 
 #ifndef F_CPU
 #define F_CPU 8000000UL
 #endif
 
 #ifndef BAUD
-#define BAUD 9600
+#define BAUD 230400
 #endif
 
 #include <stdio.h>
@@ -20,7 +21,7 @@ void uart_init() {
   // Configure data frame size to 8-bits.
   UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
   
-  // Configure to enable transmitter.
+  // Configure to enable transmitter only.
   UCSR0B = _BV(TXEN0);
 }
 
