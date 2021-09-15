@@ -1,9 +1,11 @@
 CLOCK=16000000UL
-BAUD=115200
-#BAUD=57600
-#BAUD=9600
+
+# if the baud rate is not set correctly, avrdude will not be able to flash
+BOOTLOADER_BAUD=115200 # Arduino bootloader default baud rate
 
 AVR=/usr/lib/avr/include
+PROGRAMMER_ID=arduino
+PORT=/dev/ttyACM0
 
 $(PRG).hex: $(PRG).elf
 	avr-objcopy -O ihex -R .eeprom $(PRG).elf $(PRG).hex
@@ -12,7 +14,7 @@ $(PRG).elf: $(PRG).cpp
 	avr-gcc -Os -DF_CPU=$(CLOCK) -mmcu=atmega328p -I$(AVR) -o $(PRG).elf $(PRG).cpp
 
 upload: $(PRG).hex
-	avrdude -F -V -c arduino -p m328p -P /dev/ttyACM0 -b $(BAUD) -U flash:w:$(PRG).hex
+	avrdude -F -V -c $(PROGRAMMER_ID) -p m328p -P $(PORT) -b $(BOOTLOADER_BAUD) -U flash:w:$(PRG).hex
 
 clean:
 	rm -f *.hex *.elf
